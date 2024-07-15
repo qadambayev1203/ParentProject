@@ -139,7 +139,7 @@ try
     var logger = new LoggerConfiguration()
         .ReadFrom.Configuration(builder.Configuration)
         .Enrich.FromLogContext()
-        .Enrich.WithProperty("Application", "TSTUUzWebAPI")
+        .Enrich.WithProperty("Application", "WebAPI")
         .CreateLogger();
     builder.Logging.ClearProviders();
     builder.Logging.AddSerilog(logger);
@@ -156,7 +156,7 @@ try
         app.UseSwagger();
         app.UseSwaggerUI(c =>
         {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "TSTUWebAPI v1");
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1");
         }
         );
 
@@ -168,6 +168,8 @@ try
     app.UseRouting();
 
     app.UseAuthentication();
+
+    app.UseCors("AllowAllOrigins");
     app.UseAuthorization();
 
     app.MapControllers();
